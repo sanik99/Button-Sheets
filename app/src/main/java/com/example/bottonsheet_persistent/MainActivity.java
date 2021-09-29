@@ -18,10 +18,11 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 public class MainActivity extends AppCompatActivity {
 
     private Button showSheet;
+    private Button hideSheet;
     private BottomSheetBehavior bottomSheetBehavior;
 
 
-    @Override
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -29,67 +30,40 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT>=21)
         {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
         }
 
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         showSheet = findViewById(R.id.showSheet);
+        hideSheet = findViewById(R.id.hideSheet);
 
         LinearLayout bottomSheetLayout = findViewById(R.id.buttonSheet);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
 
         //visible part of button sheet default
-        bottomSheetBehavior.setPeekHeight(200);
+        bottomSheetBehavior.setPeekHeight(320);
 
-        //setting set unhideable
-        bottomSheetBehavior.setHideable(false);
-
+//        //setting bottom peak layout unhideable
+//        bottomSheetBehavior.setHideable(false);
 
 
         showSheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                bottomSheetBehavior.setPeekHeight(200);
-                bottomSheetBehavior.setHideable(false);
-
-
-            }
-        });
-
-        //set callback for changes
-        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-
-               if ( newState==BottomSheetBehavior.STATE_COLLAPSED)
-               {
-
-                   bottomSheetBehavior.setPeekHeight(0);
-                   showSheet.setVisibility(View.VISIBLE);
-               }
-
-            }
-
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
-                // hiding view on slide
-                showSheet.setVisibility(View.INVISIBLE);
-
-
+                bottomSheetLayout.setVisibility(View.VISIBLE);
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             }
         });
 
 
+        hideSheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                bottomSheetLayout.setVisibility(View.INVISIBLE);
 
-
+            }
+        });
     }
 }
