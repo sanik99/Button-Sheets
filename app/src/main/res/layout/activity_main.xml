@@ -18,8 +18,6 @@
         android:layout_marginEnd="30dp"
         android:backgroundTint="@color/purple_200"/>
 
-    <include layout="@layout/button_sheet"/>
-
     <Button
         android:id="@+id/hideSheet"
         android:layout_width="150dp"
